@@ -262,12 +262,6 @@ prune_source_results() {
     done <<< "$(find "$source_dir" -type f ! -name "${source_name}.txt" \
         ! -name "${source_name}_????-??.txt")"
 
-    # Skip if no results files exist
-    if ! ls "${source_dir}"/"${source_name}"_*.txt &> /dev/null; then
-        print_to_con 'No results files found. Skipping pruning'
-        return
-    fi
-
     # If the source rolling period is not configured, use the default
     if [[ -z "$source_rolling_period" ]]; then
         print_to_con \
@@ -275,12 +269,19 @@ prune_source_results() {
         source_rolling_period="$PRUNE_DEFAULT_ROLLING_PERIOD"
     fi
 
-    # Skip if the rolling period is less than 1 or not numerical
-    if (( "$source_rolling_period" < 1 )); then
+    # Skip if the rolling period is not numerical or less than 1
+    if [[ ! "$source_rolling_period" =~ ^[0-9]+$ ]] \
+        || (( "$source_rolling_period" < 1 )) ; then
         print_to_con 'warn' \
             "Rolling period of (${source_rolling_period}) is invalid. Skipping pruning"
         return
     fi
+
+    # Skip if no results files exist
+    #if ! ls "${source_dir}"/"${source_name}"_*.txt &> /dev/null; then
+    #    print_to_con 'No results files found. Skipping pruning'
+    #    return
+    #fi
 
     local source_cut_off_month
     source_cut_off_month="$(date -d "-${source_rolling_period} months" +%Y-%m)"
@@ -292,6 +293,8 @@ prune_source_results() {
 
     # Prune results files saved before or in the cut-off month
     for source_monthly_file in "${source_dir}"/"${source_name}"_*.txt; do
+        [[ ! -f "$source_monthly_file" ]] && continue
+
         # Get the saved month of the results file
         source_results_month="${source_monthly_file##*"${source_name}"_}"
         source_results_month="${source_results_month%.txt}"
@@ -312,7 +315,7 @@ prune_source_results() {
     done
 
     if (( "$source_pruned_count" == 0 )); then
-        print_to_con 'No results files pruned'
+        print_to_con 'Pruned (0) results files'
     fi
 }
 
