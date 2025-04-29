@@ -326,12 +326,6 @@ prune_source_results() {
 collate_source_results() {
     local function_name='collate'
 
-    # Skip if no results files exist
-    if ! ls "${source_dir}"/"${source_name}"_*.txt &> /dev/null; then
-        print_to_con 'No results files found. Skipping collation'
-        return
-    fi
-
     # Create the empty source collated results file
     local source_collated_results_file="${source_dir}/${source_name}.txt"
     : > "$source_collated_results_file"
@@ -340,6 +334,12 @@ collate_source_results() {
 
     # Collate results files
     for source_monthly_file in "${source_dir}"/"${source_name}"_*.txt; do
+        if [[ ! -f "$source_monthly_file" ]]; then
+            log "" "0" "$source_collated_results_file" \
+                "$(wc -l < "$source_collated_results_file")"
+            continue
+        fi
+
         sort -u "$source_monthly_file" "$source_collated_results_file" \
             -o "$source_collated_results_file"
 
