@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: check through non-local variables in function headers
-
 # Retrieve results from the configured sources and save them into monthly
 # results files.
 # Prune monthly results files from the sources that are not within the source's
@@ -29,9 +27,6 @@ readonly COLLATE_LOG_HEADER='Timestamp,Source Name,Results Path, Results Count, 
 readonly LOG_MAX_ENTRIES=1000  # Does not include the header
 
 main() {
-    # TODO: might have to install dependencies here for the source (or in $retrieve_source_results)
-    # to not bias source processing time
-
     # Ensure the sources config file exists
     if [[ ! -f "$SOURCES_CONFIG" ]]; then
         print_to_con 'warn' \
@@ -82,12 +77,11 @@ main() {
 
         # Check for missing fields
         if ! mawk -F ',' '
-                # Count number of fields in the header
-                NR == 1 { fields_count = NF; next }
-                # Check if the number of fields in the line is the same as the header
-                NF != fields_count { exit 1 }
-            ' "$log_file"
-        then
+            # Count number of fields in the header
+            NR == 1 { fields_count = NF; next }
+            # Check if the number of fields in the line is the same as the header
+            NF != fields_count { exit 1 }
+        ' "$log_file"; then
             print_to_con 'warn' "Log file '${log_file}' has missing fields"
         fi
     done
@@ -171,6 +165,8 @@ process_sources() {
 #   $source_function
 retrieve_source_results() {
     local function_name='retrieve'
+
+    # TODO: install dependencies for sources here to not bias processing time
 
     # Skip if $RETRIEVE_SOURCES_SCRIPT does not exist
     if [[ ! -f "$RETRIEVE_SOURCES_SCRIPT" ]]; then
