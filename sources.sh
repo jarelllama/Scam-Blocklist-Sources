@@ -2,7 +2,9 @@
 
 # Run a source function to retrieve and save results into source_results.tmp.
 # Arguments:
-#   $1: source function to run
+#   $1:
+#       'install_dependencies' to install dependencies
+#       source function to run
 # Output:
 #   source_results.tmp (can contain URLs and square brackets)
 
@@ -14,6 +16,22 @@ readonly DOMAIN_REGEX='(?:([\p{L}\p{N}][\p{L}\p{N}-]*[\p{L}\p{N}]|[\p{L}\p{N}])\
 
 # TODO
 readonly PHISHING_TARGETS='config/phishing_detection.csv'
+
+main() {
+    # TODO
+    # Install dependencies
+    if [[ "$1" == 'install_dependencies' ]]; then
+        # Install jq
+        command -v jq > /dev/null || sudo apt-get install jq > /dev/null
+        # Install ...
+        return
+    fi
+
+    [[ -f source_results.tmp ]] && rm source_results.tmp
+
+    # Run the source function
+    "$1" || true
+}
 
 # Scrape the source URL.
 # Arguments:
@@ -29,23 +47,26 @@ CURL() {
 # Note that for sources with multiple pages to scrape, using mawk to match a
 # specific line may cause some pages to appear broken.
 
-165antifraud() {
+165_anti_fraud() {
     URL='https://165.npa.gov.tw/api/article/subclass/3'
+    # No HTTPs but may contain subfolders
     CURL | jq --arg year "$(date +%Y)" '
         .[] | select(.publishDate | contains($year)) | .content' \
-        | grep -Po "\\\">(https?://)?\K${DOMAIN_REGEX}" > source_results.tmp
+        | grep -Po ">\K${DOMAIN_REGEX}" > source_results.tmp
 }
 
-aa419() {
+artists_against_419() {
     URL='https://api.aa419.org/fakesites'
-    curl -sSL --retry 2 --retry-all-errors -H "Auth-API-Id:${AA419_API_ID}" \
+    # 500 (request limit) is about one month of results
+    curl -sSL --retry 2 --retry-all-errors -H "Auth-API-Id:${AA419_API_KEY}" \
         "${URL}/0/500?fields=Domain" \
         | grep -Po "Domain\":\"\K${DOMAIN_REGEX}" > source_results.tmp
 }
 
 behindmlm() {
     URL='https://behindmlm.com'
-    CURL "${URL}/page/[1-25]" \
+    # 15 pages is about one month of results
+    CURL "${URL}/page/[1-15]" \
         | grep -iPo "(&#8220;|<li>|; |: |and )\K${DOMAIN_REGEX}" > source_results.tmp
 }
 
@@ -426,6 +447,4 @@ malwaretips() {
 
 set -e
 
-[[ -f source_results.tmp ]] && rm source_results.tmp
-
-"$1" || true
+main "$1"
