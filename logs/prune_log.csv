@@ -1,0 +1,3 @@
+Timestamp,Source Name,File Path,Rolling Period (months),Cut-off Month
+13:28:08 30-04-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-04.txt,12,2024-04
+13:40:27 30-04-25,BehindMLM,sources/behindmlm/behindmlm_2024-04.txt,12,2024-04
