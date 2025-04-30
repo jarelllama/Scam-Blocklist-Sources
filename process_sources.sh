@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: include way to warn about orphaned directories in the sources root directory.
+
 # Retrieve results from the configured sources and save them into monthly
 # results files.
 # Prune monthly results files from the sources that are not within the source's
@@ -188,6 +190,10 @@ retrieve_source_results() {
         return
     fi
 
+    # Install source dependencies
+    # TODO
+    bash "$RETRIEVE_SOURCES_SCRIPT" 'install_dependencies'
+
     local execution_time elapsed_time source_processing_time
 
     execution_time="$(date +%s%3N)"
@@ -218,7 +224,7 @@ retrieve_source_results() {
     if (( "$source_results_count" == 0 )); then
         print_to_con 'warn' \
             'Potential source error: no results retrieved'
-        log "$source_results_count" "${source_function}()" "" \
+        log "$source_results_count" "${source_function}()" '' \
             "$source_processing_time"
         rm source_results.tmp
         return
@@ -254,7 +260,7 @@ prune_source_results() {
         [[ ! -f "$unwanted_file" ]] && continue
         print_to_con "Unwanted file '${unwanted_file##*/}' will be deleted"
         rm "$unwanted_file"
-        log "$unwanted_file" "" ""
+        log "$unwanted_file" '' ''
     done <<< "$(find "$source_dir" -type f ! -name "${source_name}.txt" \
         ! -name "${source_name}_????-??.txt")"
 
@@ -325,7 +331,7 @@ collate_source_results() {
     # Collate results files
     for source_monthly_file in "${source_dir}"/"${source_name}"_*.txt; do
         if [[ ! -f "$source_monthly_file" ]]; then
-            log "" "0" "$source_collated_results_file" "0"
+            log '' '0' "$source_collated_results_file" '0'
             continue
         fi
 
