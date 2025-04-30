@@ -77,7 +77,7 @@ main() {
 
         # Check for missing fields
         if ! mawk -F ',' '
-            # Count number of fields in the header
+            # Count the number of fields in the header
             NR == 1 { fields_count = NF; next }
             # Check if the number of fields in the line is the same as the header
             NF != fields_count { exit 1 }
@@ -273,12 +273,6 @@ prune_source_results() {
         return
     fi
 
-    # Skip if no results files exist
-    #if ! ls "${source_dir}"/"${source_name}"_*.txt &> /dev/null; then
-    #    print_to_con 'No results files found. Skipping pruning'
-    #    return
-    #fi
-
     local source_cut_off_month
     source_cut_off_month="$(date -d "-${source_rolling_period} months" +%Y-%m)"
 
@@ -331,8 +325,7 @@ collate_source_results() {
     # Collate results files
     for source_monthly_file in "${source_dir}"/"${source_name}"_*.txt; do
         if [[ ! -f "$source_monthly_file" ]]; then
-            log "" "0" "$source_collated_results_file" \
-                "$(wc -l < "$source_collated_results_file")"
+            log "" "0" "$source_collated_results_file" "0"
             continue
         fi
 
@@ -346,7 +339,7 @@ collate_source_results() {
         source_collated_count="$(( "$source_collated_count" + 1 ))"
     done
 
-    print_to_con "Collated (${source_collated_count}) results file(s). View log for info"
+    print_to_con "Collated (${source_collated_count}) results file(s)"
     print_to_con \
         "Collated ($(wc -l < "$source_collated_results_file")) results to '${source_collated_results_file##*/}'"
 }
