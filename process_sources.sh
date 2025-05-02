@@ -57,11 +57,9 @@ main() {
         source_name="${source_dir##*/}"
         source_name="${source_name//_/ }"
 
-        if grep -qiF "$source_name" "$SOURCES_CONFIG"; then
-            continue
+        if ! grep -qiF "$source_name" "$SOURCES_CONFIG"; then
+            print_to_con 'warn' "Source directory '${source_dir}' is an orphan"
         fi
-
-        print_to_con 'warn' "Source directory '${source_dir}' is an orphan"
     done
 
     # Ensure the log files exist with the correct header
