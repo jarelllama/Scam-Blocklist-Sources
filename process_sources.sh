@@ -178,8 +178,6 @@ process_sources() {
 retrieve_source_results() {
     local function_name='retrieve'
 
-    # TODO: install dependencies for sources here to not bias processing time
-
     # Skip if $RETRIEVE_SOURCES_SCRIPT does not exist
     if [[ ! -f "$RETRIEVE_SOURCES_SCRIPT" ]]; then
         print_to_con 'warn' \
@@ -201,7 +199,6 @@ retrieve_source_results() {
     fi
 
     # Install source dependencies
-    # TODO
     bash "$RETRIEVE_SOURCES_SCRIPT" 'install_dependencies'
 
     local execution_time elapsed_time source_processing_time
@@ -293,11 +290,10 @@ prune_source_results() {
     source_cut_off_month="$(date -d "-${source_rolling_period} months" +%Y-%m)"
 
     print_to_con \
-        "Using rolling period of ${source_rolling_period} months(s). Cut-off month is '${source_cut_off_month}'"
-
-    local source_pruned_count=0 source_results_month
+        "Using rolling period of ${source_rolling_period} month(s). Cut-off month is '${source_cut_off_month}'"
 
     # Prune results files saved before or in the cut-off month
+    local source_pruned_count=0 source_results_month
     for source_monthly_file in "${source_dir}"/"${source_name}"_*.txt; do
         [[ ! -f "$source_monthly_file" ]] && continue
 
@@ -336,9 +332,8 @@ collate_source_results() {
     local source_collated_file="${source_dir}/${source_name}.txt"
     : > "$source_collated_file"
 
-    local source_collated_count=0 source_monthly_file
-
     # Collate results files
+    local source_collated_count=0 source_monthly_file
     for source_monthly_file in "${source_dir}"/"${source_name}"_*.txt; do
         if [[ ! -f "$source_monthly_file" ]]; then
             log '' '0' "$source_collated_file" '0'
@@ -354,7 +349,7 @@ collate_source_results() {
         source_collated_count="$(( "$source_collated_count" + 1 ))"
     done
 
-    print_to_con "Collated (${source_collated_count}) results file(s)"
+    print_to_con "Collated (${source_collated_count}) results files"
     print_to_con \
         "Collated ($(wc -l < "$source_collated_file")) results to '${source_collated_file##*/}'"
 }
