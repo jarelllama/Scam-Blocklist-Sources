@@ -59,20 +59,22 @@ artists_against_419() {
     URL='https://api.aa419.org/fakesites'
     # 500 (request limit) is about one month of results
     curl -sSL --retry 2 --retry-all-errors -H "Auth-API-Id:${AA419_API_KEY}" \
-        "${URL}/0/500?fields=Domain" \
-        | grep -Po "Domain\":\"\K${DOMAIN_REGEX}" > source_results.tmp
+        "${URL}/0/500?fields=Domain" | grep -Po "Domain\":\"\K${DOMAIN_REGEX}" \
+        > source_results.tmp
 }
 
 behindmlm() {
     URL='https://behindmlm.com'
     # 15 pages is about one month of results
     CURL "${URL}/page/[1-15]" \
-        | grep -iPo "(&#8220;|<li>|; |: |and )\K${DOMAIN_REGEX}" > source_results.tmp
+        | grep -iPo "(&#8220;|<li>|; |: |and )\K${DOMAIN_REGEX}" \
+        > source_results.tmp
 }
 
 bugsfighter() {
     URL='https://www.bugsfighter.com/mac-viruses'
-    CURL "${URL}/page/[1-75]" | grep -iPo "remove \K${DOMAIN_REGEX}" \
+    # 25 pages is about one month of results
+    CURL "${URL}/page/[1-25]" | grep -iPo "remove \K${DOMAIN_REGEX}" \
         > source_results.tmp
 }
 
