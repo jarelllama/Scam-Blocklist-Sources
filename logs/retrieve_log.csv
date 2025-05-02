@@ -18,3 +18,5 @@ Timestamp,Source Name,Results Count,Function,Saved To,Processing Time (seconds)
 12:06:07 01-05-25,Artists Against 419,500,artists_against_419(),sources/artists_against_419/artists_against_419_2025-05.txt,0.740
 12:14:55 01-05-25,BugsFighter,167,bugsfighter(),sources/bugsfighter/bugsfighter_2025-05.txt,11.249
 13:17:58 02-05-25,BugsFighter,167,bugsfighter(),sources/bugsfighter/bugsfighter_2025-05.txt,19.145
+13:21:59 02-05-25,Česká Obchodní Inspekce,1136,coi.gov.cz(),sources/Česká_obchodní_inspekce/Česká_obchodní_inspekce_2025-05.txt,4.886
+13:41:13 02-05-25,DFPI Crypto Scam Tracker,524,crypto_scam_tracker(),sources/dfpi_crypto_scam_tracker/dfpi_crypto_scam_tracker_2025-05.txt,0.655

@@ -90,3 +90,6 @@ Timestamp,Source Name,Results Path, Results Count, Collated Results Path, Collat
 13:17:58 02-05-25,BugsFighter,sources/bugsfighter/bugsfighter_2025-03.txt,136,sources/bugsfighter/bugsfighter.txt,1519
 13:17:58 02-05-25,BugsFighter,sources/bugsfighter/bugsfighter_2025-04.txt,137,sources/bugsfighter/bugsfighter.txt,1650
 13:17:58 02-05-25,BugsFighter,sources/bugsfighter/bugsfighter_2025-05.txt,167,sources/bugsfighter/bugsfighter.txt,1812
+13:20:53 02-05-25,Česká Obchodní Inspekce,,0,sources/Česká_obchodní_inspekce/Česká_obchodní_inspekce.txt,0
+13:21:59 02-05-25,Česká Obchodní Inspekce,sources/Česká_obchodní_inspekce/Česká_obchodní_inspekce_2025-05.txt,1136,sources/Česká_obchodní_inspekce/Česká_obchodní_inspekce.txt,1136
+13:41:13 02-05-25,DFPI Crypto Scam Tracker,sources/dfpi_crypto_scam_tracker/dfpi_crypto_scam_tracker_2025-05.txt,524,sources/dfpi_crypto_scam_tracker/dfpi_crypto_scam_tracker.txt,524
