@@ -18,12 +18,12 @@ readonly DOMAIN_REGEX='(?:([\p{L}\p{N}][\p{L}\p{N}-]*[\p{L}\p{N}]|[\p{L}\p{N}])\
 readonly PHISHING_TARGETS='config/phishing_detection.csv'
 
 main() {
-    # TODO
     # Install dependencies
     if [[ "$1" == 'install_dependencies' ]]; then
         # Install jq
         command -v jq > /dev/null || sudo apt-get install jq > /dev/null
-        # Install ...
+        # TODO: Get NRD feed
+        # ...
         return
     fi
 
@@ -78,6 +78,7 @@ bugsfighter() {
         > source_results.tmp
 }
 
+# TODO
 chainabuse() {
     URL='https://raw.githubusercontent.com/jarelllama/Blocklist-Sources/refs/heads/main/chainabuse.txt'
     CURL > source_results.tmp
@@ -108,7 +109,8 @@ crypto_scam_tracker() {
         }
         # Print lines between "column-4" and "column-5" (block = 1)
         block
-        ' | grep -Po "(^|>| )(https?://)?\K${DOMAIN_REGEX}" > source_results.tmp
+        ' | grep -Po "(^|>| )(https?://)?\K${DOMAIN_REGEX}" \
+        > source_results.tmp
 }
 
 dga_detector() {
