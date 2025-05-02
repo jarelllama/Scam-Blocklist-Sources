@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: include way to warn about orphaned directories in the sources root directory.
-
 # Retrieve results from the configured sources and save them into monthly
 # results files.
 # Prune monthly results files from the sources that are not within the source's
@@ -53,9 +51,21 @@ main() {
         mkdir -p "$SOURCES_ROOT_DIR"
     fi
 
-    local log_file log_header
+    # Check for orphaned source directories in the sources root directory
+    local source_dir source_name
+    for source_dir in "${SOURCES_ROOT_DIR}"/*; do
+        source_name="${source_dir##*/}"
+        source_name="${source_name//_/ }"
+
+        if grep -qiF "$source_name" "$SOURCES_CONFIG"; then
+            continue
+        fi
+
+        print_to_con 'warn' "Source directory '${source_dir}' is an orphan"
+    done
 
     # Ensure the log files exist with the correct header
+    local log_file log_header
     for log_file in "$RETRIEVE_LOG" "$PRUNE_LOG" "$COLLATE_LOG"; do
         [[ "$log_file" == "$RETRIEVE_LOG" ]] && log_header="$RETRIEVE_LOG_HEADER"
         [[ "$log_file" == "$PRUNE_LOG" ]] && log_header="$PRUNE_LOG_HEADER"
