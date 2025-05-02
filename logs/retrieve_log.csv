@@ -12,3 +12,8 @@ Timestamp,Source Name,Results Count,Function,Saved To,Processing Time (seconds)
 13:35:14 30-04-25,BehindMLM,101,behindmlm(),sources/behindmlm/behindmlm_2025-04.txt,2.541
 13:38:29 30-04-25,BehindMLM,101,behindmlm(),sources/behindmlm/behindmlm_2025-04.txt,2.117
 13:40:27 30-04-25,BehindMLM,101,behindmlm(),sources/behindmlm/behindmlm_2025-04.txt,1.217
+12:04:31 01-05-25,165 Anti Fraud,3507,165_anti_fraud(),sources/165_anti_fraud/165_anti_fraud_2025-05.txt,11.194
+12:04:32 01-05-25,Artists Against 419,0,artists_against_419(),,0.538
+12:04:35 01-05-25,BehindMLM,102,behindmlm(),sources/behindmlm/behindmlm_2025-05.txt,3.223
+12:06:07 01-05-25,Artists Against 419,500,artists_against_419(),sources/artists_against_419/artists_against_419_2025-05.txt,0.740
+12:14:55 01-05-25,BugsFighter,167,bugsfighter(),sources/bugsfighter/bugsfighter_2025-05.txt,11.249
