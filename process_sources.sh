@@ -236,15 +236,16 @@ retrieve_source_results() {
 
     print_to_con "Retrieved (${source_results_count}) results"
 
+    # Ensure the monthly results file exists
     local source_monthly_file
     source_monthly_file="${source_dir}/${source_name}_$(date +%Y-%m).txt"
+    touch "$source_monthly_file"
 
     local source_unique_count
     source_unique_count="$(comm -23 source_results.tmp "$source_monthly_file" \
         | wc -l)"
 
     # Save the results into the monthly results file
-    touch "$source_monthly_file"
     sort -u source_results.tmp "$source_monthly_file" -o "$source_monthly_file"
 
     print_to_con \
