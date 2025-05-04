@@ -54,9 +54,9 @@ main() {
     # Check for orphaned source directories in the sources root directory
     local source_dir source_name
     for source_dir in "${SOURCES_ROOT_DIR}"/*; do
+        [[ ! -f "$source_dir" ]] && continue
         source_name="${source_dir##*/}"
         source_name="${source_name//_/ }"
-
         if ! grep -qiF "$source_name" "$SOURCES_CONFIG"; then
             print_to_con 'warn' "Source directory '${source_dir}' is an orphan"
         fi
@@ -309,9 +309,9 @@ prune_source_results() {
             continue
         fi
 
-        print_to_con "Pruned results file '${source_monthly_file##*/}'"
-
         rm "$source_monthly_file"
+
+        print_to_con "Pruned results file '${source_monthly_file##*/}'"
 
         log "$source_monthly_file" "$source_rolling_period" \
             "$source_cut_off_month"
@@ -352,7 +352,7 @@ collate_source_results() {
         source_collated_count="$(( "$source_collated_count" + 1 ))"
     done
 
-    print_to_con "Collated (${source_collated_count}) results files"
+    print_to_con "Found (${source_collated_count}) results files"
     print_to_con \
         "Collated ($(wc -l < "$source_collated_file")) results to '${source_collated_file##*/}'"
 }
