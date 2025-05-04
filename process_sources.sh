@@ -8,21 +8,21 @@
 
 readonly SOURCES_ROOT_DIR='sources'
 readonly SOURCES_CONFIG='sources.csv'
-readonly SOURCES_CONFIG_HEADER='Source Name,Source Function,Enabled (y/N),Rolling Period (months)'
+readonly SOURCES_CONFIG_HEADER='Source name,Source function,Enabled (y/N),Rolling period (months)'
 
 readonly RETRIEVE_ENABLED=true
 readonly RETRIEVE_LOG="logs/retrieve_log.csv"
-readonly RETRIEVE_LOG_HEADER='Timestamp,Source Name,Results Count,Function,Saved To,Processing Time (seconds)'
+readonly RETRIEVE_LOG_HEADER='Timestamp,Source name,Results,New results,Function,Save path,Processing time (seconds)'
 readonly RETRIEVE_SOURCES_SCRIPT='sources.sh'
 
 readonly PRUNE_ENABLED=true
 readonly PRUNE_LOG="logs/prune_log.csv"
-readonly PRUNE_LOG_HEADER='Timestamp,Source Name,File Path,Rolling Period (months),Cut-off Month'
+readonly PRUNE_LOG_HEADER='Timestamp,Source name,File path,Rolling period (months),Cut-off month'
 readonly PRUNE_DEFAULT_ROLLING_PERIOD=1  # In months
 
 readonly COLLATE_ENABLED=true
 readonly COLLATE_LOG="logs/collate_log.csv"
-readonly COLLATE_LOG_HEADER='Timestamp,Source Name,Results Path, Results Count, Collated Results Path, Collated Results Count'
+readonly COLLATE_LOG_HEADER='Timestamp,Source name,Results path,Results count,Collated results path, Collated results count'
 
 readonly LOG_MAX_ENTRIES=1000  # Does not include the header
 
