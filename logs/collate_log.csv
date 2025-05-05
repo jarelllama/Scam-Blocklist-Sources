@@ -1,4 +1,4 @@
-Timestamp,Source Name,Results Path, Results Count, Collated Results Path, Collated Results Count
+Timestamp,Source name,Results path,Results count,Collated results path, Collated results count
 12:52:59 30-04-25,165 Antifraud,sources/165_antifraud/165_antifraud_2025-04.txt,3299,sources/165_antifraud/165_antifraud.txt,3299
 13:10:04 30-04-25,Artists Against 419,,0,sources/artists_against_419/artists_against_419.txt,0
 13:10:13 30-04-25,Artists Against 419,,0,sources/artists_against_419/artists_against_419.txt,0
@@ -93,3 +93,95 @@ Timestamp,Source Name,Results Path, Results Count, Collated Results Path, Collat
 13:20:53 02-05-25,Česká Obchodní Inspekce,,0,sources/Česká_obchodní_inspekce/Česká_obchodní_inspekce.txt,0
 13:21:59 02-05-25,Česká Obchodní Inspekce,sources/Česká_obchodní_inspekce/Česká_obchodní_inspekce_2025-05.txt,1136,sources/Česká_obchodní_inspekce/Česká_obchodní_inspekce.txt,1136
 13:41:13 02-05-25,DFPI Crypto Scam Tracker,sources/dfpi_crypto_scam_tracker/dfpi_crypto_scam_tracker_2025-05.txt,524,sources/dfpi_crypto_scam_tracker/dfpi_crypto_scam_tracker.txt,524
+22:43:59 04-05-25,165 Anti Fraud,sources/165_anti_fraud/165_anti_fraud_2025-05.txt,3507,sources/165_anti_fraud/165_anti_fraud.txt,3507
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-06.txt,500,sources/artists_against_419/artists_against_419.txt,500
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-07.txt,500,sources/artists_against_419/artists_against_419.txt,1000
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-08.txt,500,sources/artists_against_419/artists_against_419.txt,1500
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-09.txt,500,sources/artists_against_419/artists_against_419.txt,2000
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-10.txt,500,sources/artists_against_419/artists_against_419.txt,2500
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-11.txt,500,sources/artists_against_419/artists_against_419.txt,3000
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-12.txt,500,sources/artists_against_419/artists_against_419.txt,3500
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-01.txt,500,sources/artists_against_419/artists_against_419.txt,4000
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-02.txt,500,sources/artists_against_419/artists_against_419.txt,4000
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-03.txt,500,sources/artists_against_419/artists_against_419.txt,4498
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-04.txt,500,sources/artists_against_419/artists_against_419.txt,4998
+23:00:27 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-05.txt,500,sources/artists_against_419/artists_against_419.txt,5019
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-06.txt,500,sources/artists_against_419/artists_against_419.txt,500
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-07.txt,500,sources/artists_against_419/artists_against_419.txt,1000
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-08.txt,500,sources/artists_against_419/artists_against_419.txt,1500
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-09.txt,500,sources/artists_against_419/artists_against_419.txt,2000
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-10.txt,500,sources/artists_against_419/artists_against_419.txt,2500
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-11.txt,500,sources/artists_against_419/artists_against_419.txt,3000
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-12.txt,500,sources/artists_against_419/artists_against_419.txt,3500
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-01.txt,500,sources/artists_against_419/artists_against_419.txt,4000
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-02.txt,500,sources/artists_against_419/artists_against_419.txt,4000
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-03.txt,500,sources/artists_against_419/artists_against_419.txt,4498
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-04.txt,500,sources/artists_against_419/artists_against_419.txt,4998
+23:02:44 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-05.txt,515,sources/artists_against_419/artists_against_419.txt,5034
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-06.txt,500,sources/artists_against_419/artists_against_419.txt,500
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-07.txt,500,sources/artists_against_419/artists_against_419.txt,1000
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-08.txt,500,sources/artists_against_419/artists_against_419.txt,1500
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-09.txt,500,sources/artists_against_419/artists_against_419.txt,2000
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-10.txt,500,sources/artists_against_419/artists_against_419.txt,2500
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-11.txt,500,sources/artists_against_419/artists_against_419.txt,3000
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2024-12.txt,500,sources/artists_against_419/artists_against_419.txt,3500
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-01.txt,500,sources/artists_against_419/artists_against_419.txt,4000
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-02.txt,500,sources/artists_against_419/artists_against_419.txt,4000
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-03.txt,500,sources/artists_against_419/artists_against_419.txt,4498
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-04.txt,500,sources/artists_against_419/artists_against_419.txt,4998
+23:08:12 04-05-25,Artists Against 419,sources/artists_against_419/artists_against_419_2025-05.txt,515,sources/artists_against_419/artists_against_419.txt,5034
+23:27:41 04-05-25,Test Source,,0,sources/test_source/test_source.txt,0
+23:38:31 04-05-25,Emerging Threats,sources/emerging_threats/emerging_threats_2025-05.txt,6250,sources/emerging_threats/emerging_threats.txt,6250
+23:40:00 04-05-25,FakeWebshopListHUN,sources/fakewebshoplisthun/fakewebshoplisthun_2025-05.txt,8143,sources/fakewebshoplisthun/fakewebshoplisthun.txt,8143
+23:45:24 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2025-05.txt,364,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:58 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2024-06.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2024-07.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2024-08.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2024-09.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2024-10.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2024-11.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2024-12.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2025-01.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2025-02.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2025-03.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2025-04.txt,462,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+23:46:59 04-05-25,Wildcat Cyber Patrol,sources/wildcat_cyber_patrol/wildcat_cyber_patrol_2025-05.txt,364,sources/wildcat_cyber_patrol/wildcat_cyber_patrol.txt,364
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-06.txt,89,sources/behindmlm/behindmlm.txt,87
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-07.txt,51,sources/behindmlm/behindmlm.txt,137
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-08.txt,77,sources/behindmlm/behindmlm.txt,208
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-09.txt,52,sources/behindmlm/behindmlm.txt,260
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-10.txt,74,sources/behindmlm/behindmlm.txt,333
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-11.txt,80,sources/behindmlm/behindmlm.txt,412
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-12.txt,95,sources/behindmlm/behindmlm.txt,506
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-01.txt,102,sources/behindmlm/behindmlm.txt,608
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-02.txt,92,sources/behindmlm/behindmlm.txt,700
+17:18:41 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-03.txt,90,sources/behindmlm/behindmlm.txt,789
+17:18:42 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-04.txt,101,sources/behindmlm/behindmlm.txt,890
+17:18:42 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-05.txt,110,sources/behindmlm/behindmlm.txt,900
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-06.txt,89,sources/behindmlm/behindmlm.txt,87
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-07.txt,51,sources/behindmlm/behindmlm.txt,137
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-08.txt,77,sources/behindmlm/behindmlm.txt,208
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-09.txt,52,sources/behindmlm/behindmlm.txt,260
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-10.txt,74,sources/behindmlm/behindmlm.txt,333
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-11.txt,80,sources/behindmlm/behindmlm.txt,412
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-12.txt,95,sources/behindmlm/behindmlm.txt,506
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-01.txt,102,sources/behindmlm/behindmlm.txt,608
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-02.txt,92,sources/behindmlm/behindmlm.txt,700
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-03.txt,90,sources/behindmlm/behindmlm.txt,789
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-04.txt,101,sources/behindmlm/behindmlm.txt,890
+17:19:18 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-05.txt,110,sources/behindmlm/behindmlm.txt,900
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-06.txt,89,sources/behindmlm/behindmlm.txt,87
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-07.txt,51,sources/behindmlm/behindmlm.txt,137
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-08.txt,77,sources/behindmlm/behindmlm.txt,208
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-09.txt,52,sources/behindmlm/behindmlm.txt,260
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-10.txt,74,sources/behindmlm/behindmlm.txt,333
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-11.txt,80,sources/behindmlm/behindmlm.txt,412
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2024-12.txt,95,sources/behindmlm/behindmlm.txt,506
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-01.txt,102,sources/behindmlm/behindmlm.txt,608
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-02.txt,92,sources/behindmlm/behindmlm.txt,700
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-03.txt,90,sources/behindmlm/behindmlm.txt,789
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-04.txt,101,sources/behindmlm/behindmlm.txt,890
+17:20:23 05-05-25,BehindMLM,sources/behindmlm/behindmlm_2025-05.txt,110,sources/behindmlm/behindmlm.txt,900
+17:22:12 05-05-25,Test Source,,0,sources/test_source/test_source.txt,0
+17:24:40 05-05-25,Test Source,,0,sources/test_source/test_source.txt,0
+17:26:01 05-05-25,Test Source,,0,sources/test_source/test_source.txt,0

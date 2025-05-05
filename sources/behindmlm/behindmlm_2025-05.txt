@@ -18,9 +18,12 @@ asset.profitedgemarket.com
 biznet.college
 boosterapp.ai
 brainstorm.market
+canmining.cc
+canmining.com
 ctkshop.co
 ctkshops.vip
 dao.in8.com
+deepiqt.com
 dellegroup.com
 desalpes.world
 desalpesfamily.app.clientclub.net
@@ -43,6 +46,8 @@ hcwellness.net
 helpinghands.cash
 helpinghands10x.cash
 helpinghandsrewards.com
+hhgstaking.com
+huntershoot.com
 huntershoot.net
 iamconnect.com
 in8.com
@@ -56,6 +61,7 @@ lufthansamvp.com
 m.exoraivip.com
 m.gold-mine.cc
 mareway-global.com
+mhttrade.io
 moscaworld.com
 niolic.com
 nk116.com
@@ -78,6 +84,7 @@ source-less.com
 sourceless.io
 sourceless.net
 splitthewinnings.com
+stakinghg.com
 thecityuku.vip
 thecode.marketing
 thesupermatrix.com
@@ -100,3 +107,4 @@ vorpen.ai
 vtsfund.com
 watchtreasureisland.com
 wms.in8.com
+x-capital.io
