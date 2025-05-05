@@ -241,18 +241,18 @@ retrieve_source_results() {
     source_monthly_file="${source_dir}/${source_name}_$(date +%Y-%m).txt"
     touch "$source_monthly_file"
 
-    local source_unique_count
-    source_unique_count="$(comm -23 source_results.tmp "$source_monthly_file" \
-        | wc -l)"
+    local source_new_results_count
+    source_new_results_count="$(comm -23 source_results.tmp \
+        "$source_monthly_file" | wc -l)"
 
     # Save the results into the monthly results file
     sort -u source_results.tmp "$source_monthly_file" -o "$source_monthly_file"
 
     print_to_con \
-        "Saved (${source_unique_count}) new results to '${source_monthly_file##*/}'"
+        "Saved (${source_new_results_count}) new results to '${source_monthly_file##*/}'"
 
-    log "$source_results_count" "$source_unique_count" "${source_function}()" \
-        "$source_monthly_file" "$source_processing_time"
+    log "$source_results_count" "$source_new_results_count" \
+        "${source_function}()" "$source_monthly_file" "$source_processing_time"
 
     rm source_results.tmp
 }
