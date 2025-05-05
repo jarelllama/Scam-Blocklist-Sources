@@ -286,7 +286,7 @@ prune_source_results() {
     if [[ ! "$source_rolling_period" =~ ^[0-9]+$ ]] \
         || (( "$source_rolling_period" < 1 )) ; then
         print_to_con 'warn' \
-            "Rolling period of (${source_rolling_period}) is invalid. Skipping pruning"
+            "Rolling period of '${source_rolling_period}' is invalid. Skipping pruning"
         return
     fi
 
@@ -320,9 +320,7 @@ prune_source_results() {
         source_pruned_count="$(( "$source_pruned_count" + 1 ))"
     done
 
-    if (( "$source_pruned_count" == 0 )); then
-        print_to_con 'Pruned (0) results files'
-    fi
+    print_to_con "Pruned (${source_pruned_count}) results files"
 }
 
 # Collate the source results files.
@@ -448,5 +446,8 @@ log() {
 # Entry point
 
 set -e
+
+# TODO
+#trap 'rm ./*.tmp 2> /dev/null || true' EXIT
 
 main
