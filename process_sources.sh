@@ -6,9 +6,9 @@
 # configured rolling period.
 # Collate results from each source into their own collated results file.
 
-readonly SOURCES_ROOT_DIR='sources'
 readonly SOURCES_CONFIG='sources.csv'
 readonly SOURCES_CONFIG_HEADER='Source name,Source function,Enabled (y/N),Rolling period (months)'
+readonly SOURCES_ROOT_DIR='sources'
 
 readonly RETRIEVE_ENABLED=true
 readonly RETRIEVE_LOG="logs/retrieve_log.csv"
