@@ -54,7 +54,7 @@ main() {
     # Check for orphaned source directories in the sources root directory
     local source_dir source_name
     for source_dir in "${SOURCES_ROOT_DIR}"/*; do
-        [[ ! -f "$source_dir" ]] && continue
+        [[ ! -d "$source_dir" ]] && continue
         source_name="${source_dir##*/}"
         source_name="${source_name//_/ }"
         if ! grep -qiF "$source_name" "$SOURCES_CONFIG"; then
