@@ -353,7 +353,7 @@ collate_source_results() {
         source_collated_count="$(( "$source_collated_count" + 1 ))"
     done
 
-    print_to_con "Found (${source_collated_count}) results files"
+    print_to_con "Collated (${source_collated_count}) results files"
     print_to_con \
         "Collated ($(wc -l < "$source_collated_file")) results to '${source_collated_file##*/}'"
 }
