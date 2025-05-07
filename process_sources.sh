@@ -7,20 +7,17 @@
 # Collate results from each source into their own collated results file.
 
 readonly SOURCES_CONFIG='sources.csv'
-readonly SOURCES_CONFIG_HEADER='Source name,Source function,Enabled (y/N),Rolling period (months)'
+readonly SOURCES_CONFIG_HEADER='Source name,Retrieve enabled (y/N),Source function,Prune enabled (y/N),Rolling period (months),Collate enabled (y/N),Include in raw (y/N)'
 readonly SOURCES_ROOT_DIR='sources'
 
-readonly RETRIEVE_ENABLED=true
 readonly RETRIEVE_LOG="logs/retrieve_log.csv"
 readonly RETRIEVE_LOG_HEADER='Timestamp,Source name,Results,New results,Function,Save path,Processing time (seconds)'
 readonly RETRIEVE_SOURCES_SCRIPT='sources.sh'
 
-readonly PRUNE_ENABLED=true
 readonly PRUNE_LOG="logs/prune_log.csv"
 readonly PRUNE_LOG_HEADER='Timestamp,Source name,File path,Rolling period (months),Cut-off month'
 readonly PRUNE_DEFAULT_ROLLING_PERIOD=1  # In months
 
-readonly COLLATE_ENABLED=true
 readonly COLLATE_LOG="logs/collate_log.csv"
 readonly COLLATE_LOG_HEADER='Timestamp,Source name,Results path,Results count,Collated results path, Collated results count'
 
@@ -112,15 +109,13 @@ main() {
 # Non-local variables:
 #   $SOURCES_CONFIG
 #   $SOURCES_ROOT_DIR
-#   $RETRIEVE_ENABLED
-#   $PRUNE_ENABLED
-#   $COLLATE_ENABLED
 process_sources() {
     local source_number=0 source_name source_dir
 
     # Loop through sources from the sources config file
-    while IFS=',' read -r source_original_name source_function source_enabled \
-        source_rolling_period; do
+    while IFS=',' read -r source_original_name source_retrieve_enabled  \
+        source_function source_prune_enabled source_rolling_period \
+        source_collate_enabled source_include_in_raw; do
 
         source_number="$(( "$source_number" + 1 ))"
 
@@ -139,12 +134,6 @@ process_sources() {
             continue
         fi
 
-        # Skip if the source is disabled
-        if [[ "$source_enabled" != 'y' ]]; then
-            print_to_con 'info' 'Source is disabled. Skipping'
-            continue
-        fi
-
         # Replace whitespaces with underscores and convert to lowercase
         source_name="$(printf "%s" "$source_original_name" \
             | tr ' [:upper:]' '_[:lower:]')"
@@ -159,9 +148,9 @@ process_sources() {
 
         print_to_con 'info' "Using directory '${source_dir}'"
 
-        [[ "$RETRIEVE_ENABLED" == true ]] && retrieve_source_results
-        [[ "$PRUNE_ENABLED" == true ]] && prune_source_results
-        [[ "$COLLATE_ENABLED" == true ]] && collate_source_results
+        retrieve_source_results
+        prune_source_results
+        collate_source_results
 
     done <<< "$(tail -n +2 "$SOURCES_CONFIG")"  # Ignores header
 }
@@ -169,12 +158,19 @@ process_sources() {
 # TODO: include a way to send notifications for source errors
 # Retrieve and save results from the source into a monthly results file.
 # Non-local variables:
+#   $source_retrieve_enabled
 #   $RETRIEVE_SOURCES_SCRIPT
+#   $source_function
 #   $source_name
 #   $source_dir
-#   $source_function
 retrieve_source_results() {
     local function_name='retrieve'
+
+    # Skip if retrieval is disabled
+    if [[ "$source_retrieve_enabled" != 'y' ]]; then
+        print_to_con 'Disabled. Skipping retrieval'
+        return
+    fi
 
     # Skip if $RETRIEVE_SOURCES_SCRIPT does not exist
     if [[ ! -f "$RETRIEVE_SOURCES_SCRIPT" ]]; then
@@ -259,12 +255,19 @@ retrieve_source_results() {
 
 # Delete unwanted files and results files not within the rolling period.
 # Non-local variables:
+#   $source_prune_enabled
 #   $source_name
 #   $source_dir
 #   $source_rolling_period
 #   $PRUNE_DEFAULT_ROLLING_PERIOD
 prune_source_results() {
     local function_name='prune'
+
+    # Skip if pruning is disabled
+    if [[ "$source_prune_enabled" != 'y' ]]; then
+        print_to_con 'Disabled. Skipping pruning'
+        return
+    fi
 
     # Delete unwanted files
     while read -r unwanted_file; do
@@ -325,10 +328,17 @@ prune_source_results() {
 
 # Collate the source results files.
 # Non-local variables:
+#   $source_collate_enabled
 #   $source_name
 #   $source_dir
 collate_source_results() {
     local function_name='collate'
+
+    # Skip if collation is disabled
+    if [[ "$source_collate_enabled" != 'y' ]]; then
+        print_to_con 'Disabled. Skipping collation'
+        return
+    fi
 
     # Create the empty source collated results file
     local source_collated_file="${source_dir}/${source_name}.txt"
