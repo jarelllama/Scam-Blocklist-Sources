@@ -24,22 +24,7 @@ readonly COLLATE_LOG_HEADER='Timestamp,Source name,Results path,Results count,Co
 readonly LOG_MAX_ENTRIES=1000  # Does not include the header
 
 main() {
-    # Ensure the sources config file exists
-    if [[ ! -f "$SOURCES_CONFIG" ]]; then
-        print_to_con 'warn' \
-            "Sources config file '${SOURCES_CONFIG}' does not exist. Will create"
-        mkdir -p "$(dirname "$SOURCES_CONFIG")"
-        printf "%s\n" "$SOURCES_CONFIG_HEADER" > "$SOURCES_CONFIG"
-        exit 1
-    fi
-
-    # Ensure the sources config file header is correct
-    if ! grep -qFx "$SOURCES_CONFIG_HEADER" "$SOURCES_CONFIG"; then
-        print_to_con 'info' \
-            "Header in sources config file '${SOURCES_CONFIG}' is incorrect. Will update"
-        # Escape slashes
-        sed -i "1s/.*/${SOURCES_CONFIG_HEADER//\//\\/}/" "$SOURCES_CONFIG"
-    fi
+    validate_sources_config
 
     # Ensure the sources root directory exists
     if [[ ! -d "$SOURCES_ROOT_DIR" ]]; then
@@ -103,6 +88,37 @@ main() {
         "No sources found in sources config file '${SOURCES_CONFIG}'. Exiting"
 
     exit 1
+}
+
+# Validate the sources config file.
+validate_sources_config() {
+    # Ensure the sources config file exists
+    if [[ ! -f "$SOURCES_CONFIG" ]]; then
+        print_to_con 'warn' \
+            "Sources config file '${SOURCES_CONFIG}' does not exist. Will create"
+        mkdir -p "$(dirname "$SOURCES_CONFIG")"
+        printf "%s\n" "$SOURCES_CONFIG_HEADER" > "$SOURCES_CONFIG"
+        exit 1
+    fi
+
+    # Ensure the sources config file header is correct
+    if ! grep -qFx "$SOURCES_CONFIG_HEADER" "$SOURCES_CONFIG"; then
+        print_to_con 'info' \
+            "Header in sources config file '${SOURCES_CONFIG}' is incorrect. Will update"
+        # Escape slashes
+        sed -i "1s/.*/${SOURCES_CONFIG_HEADER//\//\\/}/" "$SOURCES_CONFIG"
+    fi
+
+    # Check for missing fields in the sources config file
+    if ! mawk -F ',' '
+        # Count the number of fields in the header
+        NR == 1 { fields_count = NF; next }
+        # Check if the number of fields in the line is the same as the header
+        NF != fields_count { exit 1 }
+    ' "$SOURCES_CONFIG"; then
+        print_to_con 'warn' \
+            "Sources config file '${SOURCES_CONFIG}' has missing fields"
+    fi
 }
 
 # Process each source configured in the sources config file.
