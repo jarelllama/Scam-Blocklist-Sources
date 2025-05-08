@@ -447,17 +447,17 @@ print_to_con() {
     esac
 }
 
-# Log an event into the caller function's log file and keep the log file
-# within the maximum number of entries.
+# Log an event into the caller function's log file and keep the log file within
+# the maximum number of entries.
 # Arguments:
 #   $*: event to log (1 argument per field)
 # Non-local variables:
-#   $LOG_MAX_ENTRIES
 #   $RETRIEVE_LOG
 #   $PRUNE_LOG
 #   $COLLATE_LOG
 #   $function_name
 #   $source_original_name
+#   $LOG_MAX_ENTRIES
 log() {
     local log_file
 
