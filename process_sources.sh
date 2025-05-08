@@ -366,7 +366,9 @@ prune_source_results() {
         source_pruned_count="$(( "$source_pruned_count" + 1 ))"
     done
 
-    print_to_con "Pruned (${source_pruned_count}) results files"
+    if (( "$source_pruned_count" == 0 )); then
+        print_to_con "Pruned (0) results files"
+    fi
 }
 
 # Collate the source results files.
