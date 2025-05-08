@@ -107,8 +107,8 @@ validate_sources_root_dir() {
             [[ ! -f "$unwanted_file" ]] && continue
             print_to_con 'warn' \
                 "Unwanted file '${unwanted_file}' found"
-        done <<< "$(find "$source_dir" -type f ! -name "${source_name}.txt" \
-            ! -name "${source_name}_????-??.txt")"
+        done <<< "$(find "$source_dir" -type f -regextype posix-extended \
+            ! -regex ".*/${source_name}(_[0-9]{4}-[0-9]{2})?\.txt")"
     done
 }
 
