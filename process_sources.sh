@@ -26,26 +26,103 @@ readonly LOG_MAX_ENTRIES=1000  # Does not include the header
 main() {
     validate_sources_config
 
+    validate_sources_root_dir
+
+    validate_log_files
+
+    # Process sources if any are found in the sources config file
+    if [[ -n "$(tail -n +2 "$SOURCES_CONFIG")" ]]; then
+        process_sources
+        return
+    fi
+
+    print_to_con 'warn' \
+        "No sources found in sources config file '${SOURCES_CONFIG}'. Exiting"
+
+    exit 1
+}
+
+# Validate the sources config file.
+# Non-local variables:
+#   $SOURCES_CONFIG
+#   $SOURCES_CONFIG_HEADER
+validate_sources_config() {
+    # Ensure the sources config file exists
+    if [[ ! -f "$SOURCES_CONFIG" ]]; then
+        print_to_con 'warn' \
+            "Sources config file '${SOURCES_CONFIG}' does not exist. Will create"
+        mkdir -p "$(dirname "$SOURCES_CONFIG")"
+        printf "%s\n" "$SOURCES_CONFIG_HEADER" > "$SOURCES_CONFIG"
+        return
+    fi
+
+    # Ensure the sources config file header is correct
+    if ! grep -qFx "$SOURCES_CONFIG_HEADER" "$SOURCES_CONFIG"; then
+        print_to_con 'info' \
+            "Header in sources config file '${SOURCES_CONFIG}' is incorrect. Will update"
+        # Escape slashes
+        sed -i "1s/.*/${SOURCES_CONFIG_HEADER//\//\\/}/" "$SOURCES_CONFIG"
+    fi
+
+    # Check for missing fields in the sources config file
+    if ! mawk -F ',' '
+        # Count the number of fields in the header
+        NR == 1 { fields_count = NF; next }
+        # Check if the number of fields in the line is the same as the header
+        NF != fields_count { exit 1 }
+    ' "$SOURCES_CONFIG"; then
+        print_to_con 'warn' \
+            "Sources config file '${SOURCES_CONFIG}' has missing fields"
+    fi
+}
+
+# Validate the source root directory and sources directories
+# Non-local variables:
+#   $SOURCE_ROOT_DIR
+#   $SOURCES_CONFIG
+validate_sources_root_dir() {
     # Ensure the sources root directory exists
     if [[ ! -d "$SOURCES_ROOT_DIR" ]]; then
         print_to_con 'info' \
             "Sources root directory '${SOURCES_ROOT_DIR}' does not exist. Will create"
         mkdir -p "$SOURCES_ROOT_DIR"
+        return
     fi
 
-    # Check for orphaned source directories in the sources root directory
+    # Check the source directories
     local source_dir source_name
     for source_dir in "${SOURCES_ROOT_DIR}"/*; do
         [[ ! -d "$source_dir" ]] && continue
+
         source_name="${source_dir##*/}"
-        source_name="${source_name//_/ }"
-        if ! grep -qiF "$source_name" "$SOURCES_CONFIG"; then
+
+        # Check for orphaned source directories
+        if ! grep -qiF "${source_name//_/ }" "$SOURCES_CONFIG"; then
             print_to_con 'warn' "Source directory '${source_dir}' is an orphan"
         fi
+
+        # Check for unwanted files in the sources directories
+        while read -r unwanted_file; do
+            [[ ! -f "$unwanted_file" ]] && continue
+            print_to_con 'warn' \
+                "Unwanted file '${unwanted_file}' found"
+        done <<< "$(find "$source_dir" -type f ! -name "${source_name}.txt" \
+            ! -name "${source_name}_????-??.txt")"
     done
+}
+
+# Validate the log files.
+# Non-local variables:
+#   $RETRIEVE_LOG
+#   $PRUNE_LOG
+#   $COLLATE_LOG
+#   $RETRIEVE_LOG_HEADER
+#   $PRUNE_LOG_HEADER
+#   $COLLATE_LOG_HEADER
+validate_log_files() {
+    local log_file log_header
 
     # Ensure the log files exist with the correct header
-    local log_file log_header
     for log_file in "$RETRIEVE_LOG" "$PRUNE_LOG" "$COLLATE_LOG"; do
         [[ "$log_file" == "$RETRIEVE_LOG" ]] && log_header="$RETRIEVE_LOG_HEADER"
         [[ "$log_file" == "$PRUNE_LOG" ]] && log_header="$PRUNE_LOG_HEADER"
@@ -77,48 +154,6 @@ main() {
             print_to_con 'warn' "Log file '${log_file}' has missing fields"
         fi
     done
-
-    # Process sources if any are found in the sources config file
-    if [[ -n "$(tail -n +2 "$SOURCES_CONFIG")" ]]; then
-        process_sources
-        return
-    fi
-
-    print_to_con 'warn' \
-        "No sources found in sources config file '${SOURCES_CONFIG}'. Exiting"
-
-    exit 1
-}
-
-# Validate the sources config file.
-validate_sources_config() {
-    # Ensure the sources config file exists
-    if [[ ! -f "$SOURCES_CONFIG" ]]; then
-        print_to_con 'warn' \
-            "Sources config file '${SOURCES_CONFIG}' does not exist. Will create"
-        mkdir -p "$(dirname "$SOURCES_CONFIG")"
-        printf "%s\n" "$SOURCES_CONFIG_HEADER" > "$SOURCES_CONFIG"
-        exit 1
-    fi
-
-    # Ensure the sources config file header is correct
-    if ! grep -qFx "$SOURCES_CONFIG_HEADER" "$SOURCES_CONFIG"; then
-        print_to_con 'info' \
-            "Header in sources config file '${SOURCES_CONFIG}' is incorrect. Will update"
-        # Escape slashes
-        sed -i "1s/.*/${SOURCES_CONFIG_HEADER//\//\\/}/" "$SOURCES_CONFIG"
-    fi
-
-    # Check for missing fields in the sources config file
-    if ! mawk -F ',' '
-        # Count the number of fields in the header
-        NR == 1 { fields_count = NF; next }
-        # Check if the number of fields in the line is the same as the header
-        NF != fields_count { exit 1 }
-    ' "$SOURCES_CONFIG"; then
-        print_to_con 'warn' \
-            "Sources config file '${SOURCES_CONFIG}' has missing fields"
-    fi
 }
 
 # Process each source configured in the sources config file.
@@ -269,7 +304,7 @@ retrieve_source_results() {
     rm source_results.tmp
 }
 
-# Delete unwanted files and results files not within the rolling period.
+# Delete results files not within the rolling period.
 # Non-local variables:
 #   $source_prune_enabled
 #   $source_name
@@ -284,15 +319,6 @@ prune_source_results() {
         print_to_con 'Disabled. Skipping pruning'
         return
     fi
-
-    # Delete unwanted files
-    while read -r unwanted_file; do
-        [[ ! -f "$unwanted_file" ]] && continue
-        print_to_con "Unwanted file '${unwanted_file##*/}' will be deleted"
-        rm "$unwanted_file"
-        log "$unwanted_file" '' ''
-    done <<< "$(find "$source_dir" -type f ! -name "${source_name}.txt" \
-        ! -name "${source_name}_????-??.txt")"
 
     # If the source rolling period is not configured, use the default
     if [[ -z "$source_rolling_period" ]]; then
