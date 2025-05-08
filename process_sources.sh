@@ -463,15 +463,9 @@ log() {
 
     # Get the log file of the caller function
     case "$function_name" in
-        retrieve)
-            log_file="$RETRIEVE_LOG"
-            ;;
-        prune)
-            log_file="$PRUNE_LOG"
-            ;;
-        collate)
-            log_file="$COLLATE_LOG"
-            ;;
+        retrieve) log_file="$RETRIEVE_LOG" ;;
+        prune) log_file="$PRUNE_LOG" ;;
+        collate) log_file="$COLLATE_LOG" ;;
         *)
             print_to_con 'warn' \
                 "log(): Log file of function '${function_name}' is unknown"
