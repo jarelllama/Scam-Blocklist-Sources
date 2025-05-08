@@ -344,7 +344,7 @@ prune_source_results() {
 
     # Prune results files saved before or in the cut-off month
     local source_pruned_count=0 source_results_month
-    for source_monthly_file in "${source_dir}"/"${source_name}"_*.txt; do
+    for source_monthly_file in "${source_dir}"/"${source_name}"_????-??.txt; do
         [[ ! -f "$source_monthly_file" ]] && continue
 
         # Get the saved month of the results file
