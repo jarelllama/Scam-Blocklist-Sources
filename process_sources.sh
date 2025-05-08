@@ -25,9 +25,7 @@ readonly LOG_MAX_ENTRIES=1000  # Does not include the header
 
 main() {
     validate_sources_config
-
     validate_sources_root_dir
-
     validate_log_files
 
     # Process sources if any are found in the sources config file
@@ -53,7 +51,7 @@ validate_sources_config() {
             "Sources config file '${SOURCES_CONFIG}' does not exist. Will create"
         mkdir -p "$(dirname "$SOURCES_CONFIG")"
         printf "%s\n" "$SOURCES_CONFIG_HEADER" > "$SOURCES_CONFIG"
-        return
+        exit 1
     fi
 
     # Ensure the sources config file header is correct
@@ -70,9 +68,12 @@ validate_sources_config() {
         NR == 1 { fields_count = NF; next }
         # Check if the number of fields in the line is the same as the header
         NF != fields_count { exit 1 }
-    ' "$SOURCES_CONFIG"; then
+        ' "$SOURCES_CONFIG"
+    then
         print_to_con 'warn' \
-            "Sources config file '${SOURCES_CONFIG}' has missing fields"
+            "Sources config file '${SOURCES_CONFIG}' has missing fields. Exiting"
+        # Exit to avoid configuration errors
+        exit 1
     fi
 }
 
