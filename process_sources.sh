@@ -455,10 +455,10 @@ print_to_con() {
 # Arguments:
 #   $*: event to log (1 argument per field)
 # Non-local variables:
+#   $function_name
 #   $RETRIEVE_LOG
 #   $PRUNE_LOG
 #   $COLLATE_LOG
-#   $function_name
 #   $source_original_name
 #   $LOG_MAX_ENTRIES
 log() {
