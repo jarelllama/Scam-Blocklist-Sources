@@ -10,14 +10,17 @@ readonly SOURCES_CONFIG='sources.csv'
 readonly SOURCES_CONFIG_HEADER='Source name,Retrieve enabled (y/N),Source function,Prune enabled (y/N),Rolling period (months),Collate enabled (y/N),Include in raw (y/N)'
 readonly SOURCES_ROOT_DIR='sources'
 
+readonly RETRIEVE_ENABLED=true
 readonly RETRIEVE_LOG="logs/retrieve_log.csv"
 readonly RETRIEVE_LOG_HEADER='Timestamp,Source name,Results,New results,Function,Save path,Processing time (seconds)'
 readonly RETRIEVE_SOURCES_SCRIPT='sources.sh'
 
+readonly PRUNE_ENABLED=true
 readonly PRUNE_LOG="logs/prune_log.csv"
 readonly PRUNE_LOG_HEADER='Timestamp,Source name,File path,Rolling period (months),Cut-off month'
 readonly PRUNE_DEFAULT_ROLLING_PERIOD=1  # In months
 
+readonly COLLATE_ENABLED=true
 readonly COLLATE_LOG="logs/collate_log.csv"
 readonly COLLATE_LOG_HEADER='Timestamp,Source name,Results path,Results count,Collated results path, Collated results count'
 
@@ -200,9 +203,9 @@ process_sources() {
 
         print_to_con 'info' "Using directory '${source_dir}'"
 
-        retrieve_source_results
-        prune_source_results
-        collate_source_results
+        [[ "$RETRIEVE_ENABLED" == true ]] && retrieve_source_results
+        [[ "$PRUNE_ENABLED" == true ]] && prune_source_results
+        [[ "$COLLATE_ENABLED" == true ]] && collate_source_results
 
     done <<< "$(tail -n +2 "$SOURCES_CONFIG")"  # Ignores header
 }
