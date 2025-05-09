@@ -311,10 +311,10 @@ retrieve_source_results() {
 # Delete results files not within the rolling period.
 # Non-local variables:
 #   $source_prune_enabled
-#   $source_name
-#   $source_dir
 #   $source_rolling_period
 #   $PRUNE_DEFAULT_ROLLING_PERIOD
+#   $source_dir
+#   $source_name
 prune_source_results() {
     local function_name='prune'
 
@@ -326,9 +326,9 @@ prune_source_results() {
 
     # If the source rolling period is not configured, use the default
     if [[ -z "$source_rolling_period" ]]; then
-        print_to_con \
-            "Rolling period set to ${PRUNE_DEFAULT_ROLLING_PERIOD} month(s) by default"
         source_rolling_period="$PRUNE_DEFAULT_ROLLING_PERIOD"
+        print_to_con \
+            "Rolling period set to ${source_rolling_period} month(s) by default"
     fi
 
     # Skip if the rolling period is not numerical or less than 1
@@ -346,7 +346,7 @@ prune_source_results() {
         "Using rolling period of ${source_rolling_period} month(s). Cut-off month is '${source_cut_off_month}'"
 
     # Prune results files saved before or in the cut-off month
-    local source_pruned_count=0 source_results_month
+    local source_pruned_count=0 source_monthly_file source_results_month
     for source_monthly_file in "${source_dir}"/"${source_name}"_????-??.txt; do
         [[ ! -f "$source_monthly_file" ]] && continue
 
