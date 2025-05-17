@@ -5,6 +5,7 @@
 # Prune monthly results files from the sources that are not within the source's
 # configured rolling period.
 # Collate results from each source into their own collated results file.
+# Collate results from all sources into a collective collated results file.
 
 readonly SOURCES_CONFIG='sources.csv'
 readonly SOURCES_CONFIG_HEADER='Source name,Retrieve enabled (y/N),Source function,Prune enabled (y/N),Rolling period (months),Collate enabled (y/N),Include in raw (y/N)'
@@ -87,7 +88,7 @@ validate_sources_config() {
     fi
 }
 
-# Validate the source root directory and sources directories
+# Validate the source root directory and source directories
 # Non-local variables:
 #   $SOURCE_ROOT_DIR
 #   $SOURCES_CONFIG
