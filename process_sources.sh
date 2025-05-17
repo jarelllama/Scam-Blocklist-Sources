@@ -10,21 +10,28 @@ readonly SOURCES_CONFIG='sources.csv'
 readonly SOURCES_CONFIG_HEADER='Source name,Retrieve enabled (y/N),Source function,Prune enabled (y/N),Rolling period (months),Collate enabled (y/N),Include in raw (y/N)'
 readonly SOURCES_ROOT_DIR='sources'
 
-readonly RETRIEVE_ENABLED=true
-readonly RETRIEVE_LOG="logs/retrieve_log.csv"
-readonly RETRIEVE_LOG_HEADER='Timestamp,Source name,Results,New results,Function,Save path,Processing time (seconds)'
+readonly RETRIEVE_ENABLED=false
+readonly RETRIEVE_LOG='logs/retrieve_log.csv'
 readonly RETRIEVE_SOURCES_SCRIPT='sources.sh'
 
-readonly PRUNE_ENABLED=true
-readonly PRUNE_LOG="logs/prune_log.csv"
-readonly PRUNE_LOG_HEADER='Timestamp,Source name,File path,Rolling period (months),Cut-off month'
+readonly PRUNE_ENABLED=false
+readonly PRUNE_LOG='logs/prune_log.csv'
 readonly PRUNE_DEFAULT_ROLLING_PERIOD=1  # In months
 
-readonly COLLATE_ENABLED=true
-readonly COLLATE_LOG="logs/collate_log.csv"
-readonly COLLATE_LOG_HEADER='Timestamp,Source name,Results path,Results count,Collated results path, Collated results count'
+readonly COLLATE_ENABLED=false
+readonly COLLATE_LOG='logs/collate_log.csv'
+
+readonly COLLATE_ALL_ENABLED=false
+readonly COLLATE_ALL_LOG='logs/collate_all_log.csv'
+readonly COLLATE_ALL_RESULTS_FILE='collated.txt'
 
 readonly LOG_MAX_ENTRIES=1000  # Does not include the header
+declare -A LOG_HEADERS=(
+    ["$RETRIEVE_LOG"]='Results,New results,Function,Save path,Processing time (seconds)'
+    ["$PRUNE_LOG"]='File path,Rolling period (months),Cut-off month'
+    ["$COLLATE_LOG"]='Results path,Results count,Collated results path, Collated results count'
+    ["$COLLATE_ALL_LOG"]='Results path,Results count,Collated results path, Collated results count'
+)
 
 main() {
     validate_sources_config
@@ -120,17 +127,18 @@ validate_sources_root_dir() {
 #   $RETRIEVE_LOG
 #   $PRUNE_LOG
 #   $COLLATE_LOG
+#   $COLLATE_ALL_LOG
 #   $RETRIEVE_LOG_HEADER
 #   $PRUNE_LOG_HEADER
 #   $COLLATE_LOG_HEADER
+#   $COLLATE_ALL_LOG_HEADER
 validate_log_files() {
-    local log_file log_header
-
     # Ensure the log files exist with the correct header
-    for log_file in "$RETRIEVE_LOG" "$PRUNE_LOG" "$COLLATE_LOG"; do
-        [[ "$log_file" == "$RETRIEVE_LOG" ]] && log_header="$RETRIEVE_LOG_HEADER"
-        [[ "$log_file" == "$PRUNE_LOG" ]] && log_header="$PRUNE_LOG_HEADER"
-        [[ "$log_file" == "$COLLATE_LOG" ]] && log_header="$COLLATE_LOG_HEADER"
+    local log_file log_header
+    for log_file in "$RETRIEVE_LOG" "$PRUNE_LOG" "$COLLATE_LOG" \
+        "$COLLATE_ALL_LOG"; do
+
+        log_header="Timestamp,Source name,${LOG_HEADERS[$log_file]}"
 
         # Ensure the log file exists
         if [[ ! -f "$log_file" ]]; then
