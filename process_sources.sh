@@ -113,7 +113,7 @@ validate_sources_root_dir() {
             print_to_con 'warn' "Source directory '${source_dir}' is an orphan"
         fi
 
-        # Check for unwanted files in the sources directories
+        # Check for unwanted files
         while read -r unwanted_file; do
             [[ ! -f "$unwanted_file" ]] && continue
             print_to_con 'warn' \
