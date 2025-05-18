@@ -7,6 +7,8 @@
 # Collate results from each source into their own collated results file.
 # Collate results from all sources into a collective collated results file.
 
+readonly TIMEZONE='Asia/Singapore'
+
 readonly SOURCES_CONFIG='sources.csv'
 readonly SOURCES_CONFIG_HEADER='Source name,Retrieve enabled (y/N),Source function,Prune enabled (y/N),Rolling period (months),Collate enabled (y/N),Include in raw (y/N)'
 readonly SOURCES_ROOT_DIR='sources'
@@ -35,6 +37,9 @@ declare -A LOG_HEADERS=(
 )
 
 main() {
+    # Set the timezone
+    timedatectl set-timezone "$TIMEZONE"
+
     validate_sources_config
     validate_sources_root_dir
     validate_log_files
@@ -487,8 +492,8 @@ log() {
 
     # Log the event
     local IFS=','
-    printf "%s,%s,%s\n" "$(TZ=Asia/Singapore date +"%H:%M:%S %d-%m-%y")" \
-        "$source_original_name" "${*}" >> "$log_file"
+    printf "%s,%s,%s\n" "$(date +"%H:%M:%S %d-%m-%y")" "$source_original_name" \
+        "${*}" >> "$log_file"
 
     local log_entries_count
     # -1 to not include the header
