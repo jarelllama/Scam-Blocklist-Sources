@@ -28,6 +28,7 @@ readonly COLLATE_ALL_ENABLED=false
 readonly COLLATE_ALL_LOG='logs/collate_all_log.csv'
 readonly COLLATE_ALL_RESULTS_FILE='collated.txt'
 
+readonly LOG_ENABLED=true
 readonly LOG_MAX_ENTRIES=1000  # Does not include the header
 declare -A LOG_HEADERS=(
     ["$RETRIEVE_LOG"]='Results,New results,Function,Save path,Processing time (seconds)'
@@ -469,6 +470,7 @@ print_to_con() {
 # Arguments:
 #   $*: event to log (1 argument per field)
 # Non-local variables:
+#   $LOG_ENABLED
 #   $function_name
 #   $RETRIEVE_LOG
 #   $PRUNE_LOG
@@ -476,6 +478,8 @@ print_to_con() {
 #   $source_original_name
 #   $LOG_MAX_ENTRIES
 log() {
+    [[ "$LOG_ENABLED" != true ]] && return
+
     local log_file
 
     # Get the log file of the caller function
